@@ -72,11 +72,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\kehitysympäristöt\\kehitysyparistot\\DVD_\\DVD_.csproj",
+      "projectUniqueName": "C:\\Tiedostot\\kehitysymparistot\\kehitysyparistot\\DVD_\\DVD_.csproj",
       "projectName": "DVD_",
-      "projectPath": "C:\\kehitysympäristöt\\kehitysyparistot\\DVD_\\DVD_.csproj",
+      "projectPath": "C:\\Tiedostot\\kehitysymparistot\\kehitysyparistot\\DVD_\\DVD_.csproj",
       "packagesPath": "C:\\Users\\s2300859\\.nuget\\packages\\",
-      "outputPath": "C:\\kehitysympäristöt\\kehitysyparistot\\DVD_\\obj\\",
+      "outputPath": "C:\\Tiedostot\\kehitysymparistot\\kehitysyparistot\\DVD_\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\s2300859\\AppData\\Roaming\\NuGet\\NuGet.Config",

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Pt7v96veMto=",
+  "dgSpecHash": "F5Cqsrs/NiQ=",
   "success": true,
-  "projectFilePath": "C:\\kehitysympäristöt\\kehitysyparistot\\DVD_\\DVD_.csproj",
+  "projectFilePath": "C:\\Tiedostot\\kehitysymparistot\\kehitysyparistot\\DVD_\\DVD_.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\s2300859\\.nuget\\packages\\raylib-cs\\7.0.0\\raylib-cs.7.0.0.nupkg.sha512"
   ],

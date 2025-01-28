@@ -1,0 +1,6 @@
+﻿Build started at 9.32...
+1>------ Build started: Project: ruoka-annos-generaattori, Configuration: Debug Any CPU ------
+1>Skipping analyzers to speed up the build. You can execute 'Build' or 'Rebuild' command to run analyzers.
+1>ruoka-annos-generaattori -> C:\Users\s2300859\source\repos\ruoka-annos-generaattori\bin\Debug\net8.0\ruoka-annos-generaattori.dll
+========== Build: 1 succeeded, 0 failed, 0 up-to-date, 0 skipped ==========
+========== Build completed at 9.32 and took 06,624 seconds ==========

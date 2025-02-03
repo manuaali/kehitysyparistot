@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "nVLmzBnokH8=",
+  "success": true,
+  "projectFilePath": "C:\\Tiedostot\\kehitysymparistot\\kehitysyparistot\\TANKS\\TANKS.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\s2300859\\.nuget\\packages\\raylib-cs\\7.0.0\\raylib-cs.7.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

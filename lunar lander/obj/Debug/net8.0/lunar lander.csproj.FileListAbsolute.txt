@@ -1,0 +1,23 @@
+C:\Tiedostot\kehitysymparistot\kehitysyparistot\lunar lander\bin\Debug\net8.0\lunar lander.exe
+C:\Tiedostot\kehitysymparistot\kehitysyparistot\lunar lander\bin\Debug\net8.0\lunar lander.deps.json
+C:\Tiedostot\kehitysymparistot\kehitysyparistot\lunar lander\bin\Debug\net8.0\lunar lander.runtimeconfig.json
+C:\Tiedostot\kehitysymparistot\kehitysyparistot\lunar lander\bin\Debug\net8.0\lunar lander.dll
+C:\Tiedostot\kehitysymparistot\kehitysyparistot\lunar lander\bin\Debug\net8.0\lunar lander.pdb
+C:\Tiedostot\kehitysymparistot\kehitysyparistot\lunar lander\bin\Debug\net8.0\Raylib-cs.dll
+C:\Tiedostot\kehitysymparistot\kehitysyparistot\lunar lander\bin\Debug\net8.0\runtimes\linux-x64\native\libraylib.so
+C:\Tiedostot\kehitysymparistot\kehitysyparistot\lunar lander\bin\Debug\net8.0\runtimes\osx-arm64\native\libraylib.dylib
+C:\Tiedostot\kehitysymparistot\kehitysyparistot\lunar lander\bin\Debug\net8.0\runtimes\osx-x64\native\libraylib.dylib
+C:\Tiedostot\kehitysymparistot\kehitysyparistot\lunar lander\bin\Debug\net8.0\runtimes\win-x64\native\raylib.dll
+C:\Tiedostot\kehitysymparistot\kehitysyparistot\lunar lander\bin\Debug\net8.0\runtimes\win-x86\native\raylib.dll
+C:\Tiedostot\kehitysymparistot\kehitysyparistot\lunar lander\obj\Debug\net8.0\lunar lander.csproj.AssemblyReference.cache
+C:\Tiedostot\kehitysymparistot\kehitysyparistot\lunar lander\obj\Debug\net8.0\lunar lander.GeneratedMSBuildEditorConfig.editorconfig
+C:\Tiedostot\kehitysymparistot\kehitysyparistot\lunar lander\obj\Debug\net8.0\lunar lander.AssemblyInfoInputs.cache
+C:\Tiedostot\kehitysymparistot\kehitysyparistot\lunar lander\obj\Debug\net8.0\lunar lander.AssemblyInfo.cs
+C:\Tiedostot\kehitysymparistot\kehitysyparistot\lunar lander\obj\Debug\net8.0\lunar lander.csproj.CoreCompileInputs.cache
+C:\Tiedostot\kehitysymparistot\kehitysyparistot\lunar lander\obj\Debug\net8.0\lunar lander.sourcelink.json
+C:\Tiedostot\kehitysymparistot\kehitysyparistot\lunar lander\obj\Debug\net8.0\lunar la.1B66D33C.Up2Date
+C:\Tiedostot\kehitysymparistot\kehitysyparistot\lunar lander\obj\Debug\net8.0\lunar lander.dll
+C:\Tiedostot\kehitysymparistot\kehitysyparistot\lunar lander\obj\Debug\net8.0\refint\lunar lander.dll
+C:\Tiedostot\kehitysymparistot\kehitysyparistot\lunar lander\obj\Debug\net8.0\lunar lander.pdb
+C:\Tiedostot\kehitysymparistot\kehitysyparistot\lunar lander\obj\Debug\net8.0\lunar lander.genruntimeconfig.cache
+C:\Tiedostot\kehitysymparistot\kehitysyparistot\lunar lander\obj\Debug\net8.0\ref\lunar lander.dll

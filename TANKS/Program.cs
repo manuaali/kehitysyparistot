@@ -114,7 +114,6 @@ class Tank
         if (Raylib.IsKeyDown(left)) { newRect.X -= speed; direction = new Vector2(-1, 0); }
         if (Raylib.IsKeyDown(right)) { newRect.X += speed; direction = new Vector2(1, 0); }
 
-        // Tarkista törmäys seinään tai toiseen tankkiin ennen päivittämistä
         if (!Raylib.CheckCollisionRecs(newRect, wall) && !Raylib.CheckCollisionRecs(newRect, opponent.rect))
         {
             rect = newRect;

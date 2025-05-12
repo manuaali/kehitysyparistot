@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "4qM8CROVuvE=",
+  "success": true,
+  "projectFilePath": "C:\\Tiedostot\\kehitysymparistot\\kehitysyparistot\\ARTILLERY\\ARTILLERY.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\s2300859\\.nuget\\packages\\raylib-cs\\7.0.1\\raylib-cs.7.0.1.nupkg.sha512"
+  ],
+  "logs": []
+}

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ASTEROIDS")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a12f66263ce58ae01bdbbf77552b2f66758f7e18")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f2300d932d473ef0a1034f8552512f506ccdab51")]
 [assembly: System.Reflection.AssemblyProductAttribute("ASTEROIDS")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ASTEROIDS")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

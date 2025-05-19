@@ -5,13 +5,13 @@ using System.Collections.Generic;
 Raylib.InitWindow(800, 600, "Asteroids");
 Raylib.SetTargetFPS(60);
 
-Texture2D shipTexture = Raylib.LoadTexture("C:\\Tiedostot\\kehitysymparistot\\kehitysyparistot\\ASTEROIDS\\Images\\playerShip2_blue.png");
-Texture2D bulletTexture = Raylib.LoadTexture("C:\\Tiedostot\\kehitysymparistot\\kehitysyparistot\\ASTEROIDS\\Images\\laserBlue01.png");
-Texture2D asteroidTexture = Raylib.LoadTexture("C:\\Tiedostot\\kehitysymparistot\\kehitysyparistot\\ASTEROIDS\\Images\\meteorBrown_big1.png");
-Texture2D smallAsteroidTexture = Raylib.LoadTexture("C:\\Tiedostot\\kehitysymparistot\\kehitysyparistot\\ASTEROIDS\\Images\\meteorBrown_med1.png");
-Texture2D ufoTexture = Raylib.LoadTexture("C:\\Tiedostot\\kehitysymparistot\\kehitysyparistot\\ASTEROIDS\\Images\\ufoRed.png");
-Texture2D ufoBulletTexture = Raylib.LoadTexture("C:\\Tiedostot\\kehitysymparistot\\kehitysyparistot\\ASTEROIDS\\Images\\laserRed07.png");
-Texture2D explosionTexture = Raylib.LoadTexture("C:\\Tiedostot\\kehitysymparistot\\kehitysyparistot\\ASTEROIDS\\Images\\rajahdys.png");
+Texture2D shipTexture = Raylib.LoadTexture("Images\\playerShip2_blue.png");
+Texture2D bulletTexture = Raylib.LoadTexture("Images\\laserBlue01.png");
+Texture2D asteroidTexture = Raylib.LoadTexture("Images\\meteorBrown_big1.png");
+Texture2D smallAsteroidTexture = Raylib.LoadTexture("Images\\meteorBrown_med1.png");
+Texture2D ufoTexture = Raylib.LoadTexture("Images\\ufoRed.png");
+Texture2D ufoBulletTexture = Raylib.LoadTexture("Images\\laserRed07.png");
+Texture2D explosionTexture = Raylib.LoadTexture("Images\\rajahdys.png");
 
 Player player = new Player(shipTexture);
 List<Bullet> bullets = new();
@@ -204,7 +204,7 @@ while (!Raylib.WindowShouldClose())
         asteroid.Draw();
 
     foreach (var ufo in ufos)
-        ufo.Draw(); 
+        ufo.Draw();
 
     Raylib.DrawText($"Wave: {wave}", 10, 10, 24, Color.White);
 

@@ -1,79 +1,66 @@
-﻿using Raylib_cs;
+﻿using ASTEROIDS;
+using Raylib_cs;
 using System.Numerics;
-using System.Collections.Generic;
 
-public class Ufo
+class Ufo
 {
-    public Vector2 Position;
-    public Vector2 Velocity;
-    public Texture2D Texture;
-    public bool Active = true;
+    public PositionComponent Position;
+    public VelocityComponent Velocity;
+    private RenderComponent Render;
+    private Texture2D BulletTexture;
+    public List<Bullet> Bullets = new();
 
-    public List<UfoBullet> Bullets = new List<UfoBullet>();
-    private Texture2D bulletTexture;
+    private float Speed = 120f;
+    private float shootTimer;
 
-    private float fireTimer = 0f;
-    private float fireInterval;
 
-    public Ufo(Vector2 spawnPos, Texture2D texture, Texture2D bulletTex)
+
+    public Ufo(Vector2 spawnPos, Texture2D texture, Texture2D bulletTexture)
     {
-        Texture = texture;
-        bulletTexture = bulletTex;
-        Position = spawnPos;
+        Position = new PositionComponent(spawnPos.X, spawnPos.Y);
+        Render = new RenderComponent(texture);
+        BulletTexture = bulletTexture;
 
-        float angle = Raylib.GetRandomValue(0, 360);
-        float radians = MathF.PI / 180 * angle;
-        float speed = 2.5f;
-        Velocity = new Vector2(MathF.Cos(radians), MathF.Sin(radians)) * speed;
+        Vector2 direction = Utils.GetRandomDirection(1f);
+        Velocity = new VelocityComponent(direction.X * Speed, direction.Y * Speed);
 
-        fireInterval = Raylib.GetRandomValue(1500, 3000) / 1000f;
+        ResetShootTimer();
     }
 
-    public void Update()
+    public void Update(float deltaTime)
     {
-        Position += Velocity;
-        Position = Utils.WrapPosition(Position, Raylib.GetScreenWidth(), Raylib.GetScreenHeight());
+        Velocity.Move(Position, deltaTime);
 
-        fireTimer += Raylib.GetFrameTime();
-        if (fireTimer >= fireInterval)
+        shootTimer -= deltaTime;
+        if (shootTimer <= 0f)
         {
-            Fire();
-            fireTimer = 0f;
-            fireInterval = Raylib.GetRandomValue(1500, 3000) / 1000f; // satunnaista uusi väli joka laukauksen jälkeen
+            Shoot();
+            ResetShootTimer();
         }
 
         for (int i = Bullets.Count - 1; i >= 0; i--)
         {
             Bullets[i].Update();
             if (!Bullets[i].Active)
-            {
                 Bullets.RemoveAt(i);
-            }
         }
-    }
-
-    private void Fire()
-    {
-        float angle = Raylib.GetRandomValue(0, 360);
-        float radians = MathF.PI / 180 * angle;
-        Vector2 direction = new Vector2(MathF.Cos(radians), MathF.Sin(radians));
-
-        Bullets.Add(new UfoBullet(Position, direction, bulletTexture));
     }
 
     public void Draw()
     {
-        Vector2 origin = new Vector2(Texture.Width / 2, Texture.Height / 2);
-        Raylib.DrawTexturePro(
-            Texture,
-            new Rectangle(0, 0, Texture.Width, Texture.Height),
-            new Rectangle(Position.X, Position.Y, Texture.Width, Texture.Height),
-            origin,
-            0f,
-            Color.White
-        );
+        Render.Draw(Position.Position);
+        foreach (var b in Bullets)
+            b.Draw();
+    }
 
-        foreach (var bullet in Bullets)
-            bullet.Draw();
+    private void Shoot()
+    {
+        float rotation = (float)(Utils.rnd.NextDouble() * 2 * Math.PI);
+        Bullets.Add(new Bullet(Position.Position, rotation, BulletTexture));
+    }
+
+    private void ResetShootTimer()
+    {
+        shootTimer = 1.5f + (float)(Utils.rnd.NextDouble() * 1.5f);
     }
 }

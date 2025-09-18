@@ -1,62 +1,37 @@
-﻿using Raylib_cs;
+﻿using ASTEROIDS;
+using Raylib_cs;
 using System.Numerics;
 
-public class Bullet
+class Bullet
 {
-    public Vector2 Position;
-    public Vector2 Velocity;
-    public Texture2D Texture;
+    public PositionComponent Position;
+    public VelocityComponent Velocity;
+    private RenderComponent Render;
     public bool Active = true;
-    public float Speed = 8f;
-    public float Rotation;
 
-    private float lifetime = 4f;
-    private float age = 0f;
-
-    // Pelaajan ammuksia varten
-    public Bullet(Vector2 startPos, float rotation, Texture2D texture)
+    public Bullet(Vector2 spawnPos, float rotation, Texture2D texture, float speed = 400f)
     {
-        Texture = texture;
-        Position = startPos;
-        Rotation = rotation;
+        Position = new PositionComponent(spawnPos.X, spawnPos.Y);
+        Render = new RenderComponent(texture);
 
-        float radians = MathF.PI / 180 * (rotation - 90f);
-        Velocity = new Vector2(MathF.Cos(radians), MathF.Sin(radians)) * Speed;
-    }
-
-    // UFO:n ammuksia varten
-    public Bullet(Vector2 startPos, float rotation, Texture2D texture, float speed, Vector2 velocity)
-    {
-        Texture = texture;
-        Position = startPos;
-        Rotation = rotation;
-        Speed = speed;
-        Velocity = velocity * Speed;
+        Vector2 direction = Utils.DirectionFromRotation(rotation);
+        Velocity = new VelocityComponent(direction.X * speed, direction.Y * speed);
     }
 
     public void Update()
     {
-        Position += Velocity;
+        Velocity.Move(Position, Raylib.GetFrameTime());
 
-        age += Raylib.GetFrameTime();
-        if (age >= lifetime)
+        // Poistetaan bullet, jos se menee ruudun ulkopuolelle
+        if (Position.Position.X < 0 || Position.Position.X > Raylib.GetScreenWidth() ||
+            Position.Position.Y < 0 || Position.Position.Y > Raylib.GetScreenHeight())
         {
             Active = false;
         }
-
-        Position = Utils.WrapPosition(Position, Raylib.GetScreenWidth(), Raylib.GetScreenHeight());
     }
 
     public void Draw()
     {
-        Vector2 origin = new Vector2(Texture.Width / 2, Texture.Height / 2);
-        Raylib.DrawTexturePro(
-            Texture,
-            new Rectangle(0, 0, Texture.Width, Texture.Height),
-            new Rectangle(Position.X, Position.Y, Texture.Width, Texture.Height),
-            origin,
-            Rotation,
-            Color.White
-        );
+        Render.Draw(Position.Position);
     }
 }

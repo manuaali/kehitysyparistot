@@ -13,7 +13,9 @@ Texture2D ufoTexture = Raylib.LoadTexture("Images\\ufoRed.png");
 Texture2D ufoBulletTexture = Raylib.LoadTexture("Images\\laserRed07.png");
 Texture2D explosionTexture = Raylib.LoadTexture("Images\\rajahdys.png");
 
+// Pelaaja
 Player player = new Player(shipTexture);
+
 List<Bullet> bullets = new();
 List<Asteroid> asteroids = new();
 List<Ufo> ufos = new();
@@ -27,20 +29,17 @@ void StartWave(int count)
 {
     for (int i = 0; i < count; i++)
     {
-        Vector2 spawn = new Vector2(
-            Raylib.GetRandomValue(0, Raylib.GetScreenWidth()),
-            Raylib.GetRandomValue(0, Raylib.GetScreenHeight())
-        );
+        float spawnX = Raylib.GetRandomValue(0, Raylib.GetScreenWidth());
+        float spawnY = Raylib.GetRandomValue(0, Raylib.GetScreenHeight());
 
-        Asteroid newAsteroid = new Asteroid(spawn, asteroidTexture);
-        newAsteroid.IsSmall = false;
+        Asteroid newAsteroid = new Asteroid(new Vector2(spawnX, spawnY), asteroidTexture, false);
         asteroids.Add(newAsteroid);
     }
 }
 
 void ResetGame()
 {
-    player.Position = new Vector2(Raylib.GetScreenWidth() / 2, Raylib.GetScreenHeight() / 2);
+    player.Position.Position = new Vector2(Raylib.GetScreenWidth() / 2, Raylib.GetScreenHeight() / 2);
     bullets.Clear();
     asteroids.Clear();
     ufos.Clear();
@@ -53,21 +52,21 @@ StartWave(wave);
 
 while (!Raylib.WindowShouldClose())
 {
+    float deltaTime = Raylib.GetFrameTime();
+
     if (!playerDead)
     {
         if (Raylib.IsKeyPressed(KeyboardKey.Space))
         {
-            Vector2 bulletSpawn = player.Position;
-            bullets.Add(new Bullet(bulletSpawn, player.Rotation, bulletTexture));
+            bullets.Add(new Bullet(player.Position.Position, player.Rotation, bulletTexture));
         }
 
         if (!ufoSpawnedThisWave && wave >= 3)
         {
-            Vector2 spawn = new Vector2(
-                Raylib.GetRandomValue(0, Raylib.GetScreenWidth()),
-                Raylib.GetRandomValue(0, Raylib.GetScreenHeight())
-            );
-            ufos.Add(new Ufo(spawn, ufoTexture, ufoBulletTexture));
+            float spawnX = Raylib.GetRandomValue(0, Raylib.GetScreenWidth());
+            float spawnY = Raylib.GetRandomValue(0, Raylib.GetScreenHeight());
+
+            ufos.Add(new Ufo(new Vector2(spawnX, spawnY), ufoTexture, ufoBulletTexture));
             ufoSpawnedThisWave = true;
         }
 
@@ -75,7 +74,7 @@ while (!Raylib.WindowShouldClose())
     }
     else
     {
-        explosionTimer -= Raylib.GetFrameTime();
+        explosionTimer -= deltaTime;
         if (explosionTimer <= 0f)
         {
             ResetGame();
@@ -83,6 +82,7 @@ while (!Raylib.WindowShouldClose())
         }
     }
 
+    // Päivitä luodit
     for (int i = bullets.Count - 1; i >= 0; i--)
     {
         bullets[i].Update();
@@ -90,23 +90,22 @@ while (!Raylib.WindowShouldClose())
             bullets.RemoveAt(i);
     }
 
+    // Päivitä asteroidit
     foreach (var asteroid in asteroids)
         asteroid.Update();
 
+    // Päivitä UFOt
     foreach (var ufo in ufos)
-        ufo.Update();
+        ufo.Update(deltaTime);
 
+    // Asteroidien törmäys ja tuho
     for (int i = bullets.Count - 1; i >= 0; i--)
     {
         Bullet bullet = bullets[i];
-
         for (int j = asteroids.Count - 1; j >= 0; j--)
         {
             Asteroid asteroid = asteroids[j];
-            float distance = Vector2.Distance(bullet.Position, asteroid.Position);
-            float collisionRadius = asteroid.IsSmall ? 20f : 40f;
-
-            if (distance < collisionRadius)
+            if (Raylib.CheckCollisionPointCircle(bullet.Position.Position, asteroid.Position.Position, asteroid.GetRadius()))
             {
                 asteroids.RemoveAt(j);
                 bullets.RemoveAt(i);
@@ -115,14 +114,13 @@ while (!Raylib.WindowShouldClose())
                 {
                     for (int k = 0; k < 3; k++)
                     {
-                        float angle = Raylib.GetRandomValue(0, 360);
-                        float radians = MathF.PI / 180 * angle;
-                        Vector2 velocity = new Vector2(MathF.Cos(radians), MathF.Sin(radians)) * 2f;
+                        Asteroid smallAsteroid = new Asteroid(
+                            asteroid.Position.Position,   
+                            smallAsteroidTexture,         
+                            true                          
+                        );
 
-                        Asteroid smallAsteroid = new Asteroid(asteroid.Position, smallAsteroidTexture);
-                        smallAsteroid.Velocity = velocity;
-                        smallAsteroid.Speed = 2f;
-                        smallAsteroid.IsSmall = true;
+                        smallAsteroid.Velocity.Velocity = Utils.GetRandomDirection(2f);
 
                         asteroids.Add(smallAsteroid);
                     }
@@ -132,14 +130,14 @@ while (!Raylib.WindowShouldClose())
         }
     }
 
+    // UFOjen törmäys
     for (int i = bullets.Count - 1; i >= 0; i--)
     {
         Bullet bullet = bullets[i];
         for (int j = ufos.Count - 1; j >= 0; j--)
         {
             Ufo ufo = ufos[j];
-            float distance = Vector2.Distance(bullet.Position, ufo.Position);
-            if (distance < 30f)
+            if (Raylib.CheckCollisionPointCircle(bullet.Position.Position, ufo.Position.Position, 20f))
             {
                 ufos.RemoveAt(j);
                 bullets.RemoveAt(i);
@@ -148,11 +146,12 @@ while (!Raylib.WindowShouldClose())
         }
     }
 
+    // Pelaajan törmäykset
     if (!playerDead)
     {
         foreach (var asteroid in asteroids)
         {
-            if (Vector2.Distance(player.Position, asteroid.Position) < (asteroid.IsSmall ? 20f : 40f))
+            if (Raylib.CheckCollisionPointCircle(player.Position.Position, asteroid.Position.Position, asteroid.GetRadius()))
             {
                 playerDead = true;
                 explosionTimer = 2f;
@@ -164,7 +163,7 @@ while (!Raylib.WindowShouldClose())
         {
             for (int i = ufo.Bullets.Count - 1; i >= 0; i--)
             {
-                if (Vector2.Distance(player.Position, ufo.Bullets[i].Position) < 20f)
+                if (Raylib.CheckCollisionPointCircle(player.Position.Position, ufo.Bullets[i].Position.Position, 20f))
                 {
                     playerDead = true;
                     explosionTimer = 2f;
@@ -181,6 +180,7 @@ while (!Raylib.WindowShouldClose())
         ufoSpawnedThisWave = false;
     }
 
+    // Piirrä kaikki
     Raylib.BeginDrawing();
     Raylib.ClearBackground(Color.Black);
 
@@ -190,7 +190,7 @@ while (!Raylib.WindowShouldClose())
     {
         Raylib.DrawTextureEx(
             explosionTexture,
-            player.Position - new Vector2(explosionTexture.Width, explosionTexture.Height) / 2,
+            player.Position.Position - new Vector2(explosionTexture.Width, explosionTexture.Height) / 2,
             0f,
             1f,
             Color.White
@@ -211,6 +211,7 @@ while (!Raylib.WindowShouldClose())
     Raylib.EndDrawing();
 }
 
+// Unload textures
 Raylib.UnloadTexture(shipTexture);
 Raylib.UnloadTexture(bulletTexture);
 Raylib.UnloadTexture(asteroidTexture);

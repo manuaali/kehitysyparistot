@@ -1,46 +1,40 @@
-﻿using Raylib_cs;
+﻿using ASTEROIDS;
+using Raylib_cs;
 using System.Numerics;
 
-public class Asteroid
+class Asteroid
 {
-    public Vector2 Position;
-    public Vector2 Velocity;
-    public Texture2D Texture;
-    public float Rotation;
-    public float Speed = 2f;
-    public bool IsSmall = false;
+    public PositionComponent Position;
+    public VelocityComponent Velocity;
+    private RenderComponent Render;
+    public bool IsSmall;
 
-    public Asteroid(Vector2 spawnPos, Texture2D texture)
+    private float Speed = 100f;
+
+    public Asteroid(Vector2 spawnPos, Texture2D texture, bool isSmall)
     {
-        Texture = texture;
-        Position = spawnPos;
+        Position = new PositionComponent(spawnPos.X, spawnPos.Y);
+        Render = new RenderComponent(texture);
+        IsSmall = isSmall;
 
-        float angle = Raylib.GetRandomValue(0, 360);
-        float radians = MathF.PI / 180 * angle;
-        Velocity = new Vector2(MathF.Cos(radians), MathF.Sin(radians)) * Speed;
-
-        Rotation = Raylib.GetRandomValue(0, 360);
+        Vector2 direction = Utils.GetRandomDirection(1f);
+        Velocity = new VelocityComponent(direction.X * Speed, direction.Y * Speed);
     }
 
     public void Update()
     {
-        Position += Velocity;
-
-        Position = Utils.WrapPosition(Position, Raylib.GetScreenWidth(), Raylib.GetScreenHeight());
+        Velocity.Move(Position, Raylib.GetFrameTime());
     }
-
 
     public void Draw()
     {
-        Vector2 origin = new Vector2(Texture.Width / 2f, Texture.Height / 2f);
+        Render.Draw(Position.Position);
+    }
 
-        Raylib.DrawTexturePro(
-            Texture,
-            new Rectangle(0, 0, Texture.Width, Texture.Height),
-            new Rectangle(Position.X, Position.Y, Texture.Width, Texture.Height),
-            origin,
-            Rotation,
-            Color.White
-        );
+    public float GetRadius() => RenderTextureRadius();
+
+    private float RenderTextureRadius()
+    {
+        return IsSmall ? 20f : 40f; 
     }
 }

@@ -7,28 +7,28 @@
       "RelativeMoniker": "D:0:0:{96061BC1-2B58-4AE2-9422-B009801D6DE0}|ASTEROIDS.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{96061BC1-2B58-4AE2-9422-B009801D6DE0}|ASTEROIDS.csproj|c:\\tiedostot\\kehitysymparistot\\kehitysyparistot\\asteroids\\utils.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{96061BC1-2B58-4AE2-9422-B009801D6DE0}|ASTEROIDS.csproj|solutionrelative:utils.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{96061BC1-2B58-4AE2-9422-B009801D6DE0}|ASTEROIDS.csproj|c:\\tiedostot\\kehitysymparistot\\kehitysyparistot\\asteroids\\ufobullet.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{96061BC1-2B58-4AE2-9422-B009801D6DE0}|ASTEROIDS.csproj|solutionrelative:ufobullet.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{96061BC1-2B58-4AE2-9422-B009801D6DE0}|ASTEROIDS.csproj|c:\\tiedostot\\kehitysymparistot\\kehitysyparistot\\asteroids\\asteroid.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{96061BC1-2B58-4AE2-9422-B009801D6DE0}|ASTEROIDS.csproj|solutionrelative:asteroid.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{96061BC1-2B58-4AE2-9422-B009801D6DE0}|ASTEROIDS.csproj|c:\\tiedostot\\kehitysymparistot\\kehitysyparistot\\asteroids\\ufo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{96061BC1-2B58-4AE2-9422-B009801D6DE0}|ASTEROIDS.csproj|solutionrelative:ufo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{96061BC1-2B58-4AE2-9422-B009801D6DE0}|ASTEROIDS.csproj|c:\\tiedostot\\kehitysymparistot\\kehitysyparistot\\asteroids\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{96061BC1-2B58-4AE2-9422-B009801D6DE0}|ASTEROIDS.csproj|solutionrelative:player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{96061BC1-2B58-4AE2-9422-B009801D6DE0}|ASTEROIDS.csproj|c:\\tiedostot\\kehitysymparistot\\kehitysyparistot\\asteroids\\bullet.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{96061BC1-2B58-4AE2-9422-B009801D6DE0}|ASTEROIDS.csproj|solutionrelative:bullet.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{96061BC1-2B58-4AE2-9422-B009801D6DE0}|ASTEROIDS.csproj|c:\\tiedostot\\kehitysymparistot\\kehitysyparistot\\asteroids\\asteroid.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{96061BC1-2B58-4AE2-9422-B009801D6DE0}|ASTEROIDS.csproj|solutionrelative:asteroid.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{96061BC1-2B58-4AE2-9422-B009801D6DE0}|ASTEROIDS.csproj|c:\\tiedostot\\kehitysymparistot\\kehitysyparistot\\asteroids\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{96061BC1-2B58-4AE2-9422-B009801D6DE0}|ASTEROIDS.csproj|solutionrelative:player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{96061BC1-2B58-4AE2-9422-B009801D6DE0}|ASTEROIDS.csproj|c:\\tiedostot\\kehitysymparistot\\kehitysyparistot\\asteroids\\utils.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{96061BC1-2B58-4AE2-9422-B009801D6DE0}|ASTEROIDS.csproj|solutionrelative:utils.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{96061BC1-2B58-4AE2-9422-B009801D6DE0}|ASTEROIDS.csproj|c:\\tiedostot\\kehitysymparistot\\kehitysyparistot\\asteroids\\ufobullet.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{96061BC1-2B58-4AE2-9422-B009801D6DE0}|ASTEROIDS.csproj|solutionrelative:ufobullet.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -42,52 +42,50 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 2,
               "Title": "Ufo.cs",
               "DocumentMoniker": "C:\\Tiedostot\\kehitysymparistot\\kehitysyparistot\\ASTEROIDS\\Ufo.cs",
               "RelativeDocumentMoniker": "Ufo.cs",
               "ToolTip": "C:\\Tiedostot\\kehitysymparistot\\kehitysyparistot\\ASTEROIDS\\Ufo.cs",
               "RelativeToolTip": "Ufo.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAE4AAAABAAAAAAAAAA==",
+              "ViewState": "AgIAABMAAAAAAAAAAAAQwDAAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-28T07:35:47.219Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 6,
               "Title": "UfoBullet.cs",
               "DocumentMoniker": "C:\\Tiedostot\\kehitysymparistot\\kehitysyparistot\\ASTEROIDS\\UfoBullet.cs",
               "RelativeDocumentMoniker": "UfoBullet.cs",
               "ToolTip": "C:\\Tiedostot\\kehitysymparistot\\kehitysyparistot\\ASTEROIDS\\UfoBullet.cs",
               "RelativeToolTip": "UfoBullet.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACYAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAgwBIAAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-28T07:35:32.134Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-28T07:35:32.134Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 5,
               "Title": "Utils.cs",
               "DocumentMoniker": "C:\\Tiedostot\\kehitysymparistot\\kehitysyparistot\\ASTEROIDS\\Utils.cs",
               "RelativeDocumentMoniker": "Utils.cs",
               "ToolTip": "C:\\Tiedostot\\kehitysymparistot\\kehitysyparistot\\ASTEROIDS\\Utils.cs",
               "RelativeToolTip": "Utils.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAUAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-16T09:30:31.221Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-16T09:30:31.221Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 1,
               "Title": "Asteroid.cs",
               "DocumentMoniker": "C:\\Tiedostot\\kehitysymparistot\\kehitysyparistot\\ASTEROIDS\\Asteroid.cs",
               "RelativeDocumentMoniker": "Asteroid.cs",
               "ToolTip": "C:\\Tiedostot\\kehitysymparistot\\kehitysyparistot\\ASTEROIDS\\Asteroid.cs",
               "RelativeToolTip": "Asteroid.cs",
-              "ViewState": "AgIAABEAAAAAAAAAAAAUwC0AAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-15T06:54:43.493Z",
               "EditorCaption": ""
@@ -100,23 +98,21 @@
               "RelativeDocumentMoniker": "Player.cs",
               "ToolTip": "C:\\Tiedostot\\kehitysymparistot\\kehitysyparistot\\ASTEROIDS\\Player.cs",
               "RelativeToolTip": "Player.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAADoAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAABsAAAAAAAAAAAAowCAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-14T11:00:21.337Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-14T11:00:21.337Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 3,
               "Title": "Bullet.cs",
               "DocumentMoniker": "C:\\Tiedostot\\kehitysymparistot\\kehitysyparistot\\ASTEROIDS\\Bullet.cs",
               "RelativeDocumentMoniker": "Bullet.cs",
               "ToolTip": "C:\\Tiedostot\\kehitysymparistot\\kehitysyparistot\\ASTEROIDS\\Bullet.cs",
               "RelativeToolTip": "Bullet.cs",
-              "ViewState": "AgIAACEAAAAAAAAAAAAUwD0AAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAABGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-15T06:33:04.293Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-15T06:33:04.293Z"
             },
             {
               "$type": "Document",
@@ -126,7 +122,7 @@
               "RelativeDocumentMoniker": "program.cs",
               "ToolTip": "C:\\Tiedostot\\kehitysymparistot\\kehitysyparistot\\ASTEROIDS\\program.cs",
               "RelativeToolTip": "program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAABKAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-15T06:19:14.21Z",
               "EditorCaption": ""

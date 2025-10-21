@@ -39,7 +39,7 @@ public class Ufo
         {
             Fire();
             fireTimer = 0f;
-            fireInterval = Raylib.GetRandomValue(1500, 3000) / 1000f; // satunnaista uusi väli joka laukauksen jälkeen
+            fireInterval = Raylib.GetRandomValue(1500, 3000) / 1000f; 
         }
 
         for (int i = Bullets.Count - 1; i >= 0; i--)

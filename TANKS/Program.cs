@@ -4,73 +4,140 @@ using System.Collections.Generic;
 using System.Numerics;
 
 Raylib.InitWindow(800, 600, "Tank Game");
+Raylib.InitAudioDevice();
 Raylib.SetTargetFPS(60);
 
-Tank tank1 = new Tank(100, 250, Color.Pink);
-Tank tank2 = new Tank(600, 250, Color.Orange);
+// -----------------------------
+// Tekstuurit ja äänet
+// -----------------------------
+Texture2D tank1Texture = Raylib.LoadTexture("Images/Tank1.png");
+Texture2D tank2Texture = Raylib.LoadTexture("Images/Tank2.png");
+Texture2D explosionTexture = Raylib.LoadTexture("Images/explosion.png");
+
+Sound shootSound = Raylib.LoadSound("Images/shoot.wav");
+Sound explosionSound = Raylib.LoadSound("Images/explosion.wav");
+
+// -----------------------------
+// Pelaajat ja kenttä
+// -----------------------------
+Tank tank1 = new Tank(100, 250, tank1Texture);
+Tank tank2 = new Tank(600, 250, tank2Texture);
 
 List<Bullet> bullets = new List<Bullet>();
-
 Rectangle wall = new Rectangle(350, 200, 100, 200);
 
+// -----------------------------
+// Räjähdysanimaation muuttujat
+// -----------------------------
+bool explosionActive = false;
+float explosionTimer = 0f;
+Vector2 explosionPosition = new Vector2();
+float explosionDuration = 2.0f; // kuinka kauan räjähdys kestää sekunneissa
+
+// -----------------------------
+// Reset
+// -----------------------------
 void ResetGame()
 {
     tank1.ResetPosition(100, 250);
     tank2.ResetPosition(600, 250);
     bullets.Clear();
+    explosionActive = false;
+    explosionTimer = 0f;
 }
 
+// -----------------------------
+// Pelisilmukka
+// -----------------------------
 while (!Raylib.WindowShouldClose())
 {
-    tank1.Update(KeyboardKey.W, KeyboardKey.S, KeyboardKey.A, KeyboardKey.D, KeyboardKey.F, bullets, wall, tank2);
-    tank2.Update(KeyboardKey.Up, KeyboardKey.Down, KeyboardKey.Left, KeyboardKey.Right, KeyboardKey.M, bullets, wall, tank1);
-
-    for (int i = bullets.Count - 1; i >= 0; i--)
+    if (!explosionActive)
     {
-        bullets[i].Update();
+        tank1.Update(KeyboardKey.W, KeyboardKey.S, KeyboardKey.A, KeyboardKey.D, KeyboardKey.F, bullets, wall, tank2, shootSound);
+        tank2.Update(KeyboardKey.Up, KeyboardKey.Down, KeyboardKey.Left, KeyboardKey.Right, KeyboardKey.M, bullets, wall, tank1, shootSound);
 
-        if (bullets[i].Shooter == tank1 && Raylib.CheckCollisionRecs(bullets[i].rect, tank1.rect))
+        for (int i = bullets.Count - 1; i >= 0; i--)
         {
-            continue;
-        }
-        if (bullets[i].Shooter == tank2 && Raylib.CheckCollisionRecs(bullets[i].rect, tank2.rect))
-        {
-            continue;
-        }
+            bullets[i].Update();
 
-        if (bullets[i].Shooter != tank1 && Raylib.CheckCollisionRecs(bullets[i].rect, tank1.rect))
+            if (bullets[i].Shooter == tank1 && Raylib.CheckCollisionRecs(bullets[i].rect, tank1.rect))
+                continue;
+            if (bullets[i].Shooter == tank2 && Raylib.CheckCollisionRecs(bullets[i].rect, tank2.rect))
+                continue;
+
+            // 💥 Osuma tankki 1
+            if (bullets[i].Shooter != tank1 && Raylib.CheckCollisionRecs(bullets[i].rect, tank1.rect))
+            {
+                tank2.Score++;
+                Raylib.PlaySound(explosionSound);
+                explosionActive = true;
+                explosionTimer = 0f;
+                explosionPosition = new Vector2(tank1.rect.X, tank1.rect.Y);
+                bullets.Clear(); // poista kaikki luodit heti
+                continue;
+            }
+
+            // 💥 Osuma tankki 2
+            if (bullets[i].Shooter != tank2 && Raylib.CheckCollisionRecs(bullets[i].rect, tank2.rect))
+            {
+                tank1.Score++;
+                Raylib.PlaySound(explosionSound);
+                explosionActive = true;
+                explosionTimer = 0f;
+                explosionPosition = new Vector2(tank2.rect.X, tank2.rect.Y);
+                bullets.Clear();
+                continue;
+            }
+
+            if (Raylib.CheckCollisionRecs(bullets[i].rect, wall) || bullets[i].OutOfBounds(800, 600))
+            {
+                bullets.RemoveAt(i);
+            }
+        }
+    }
+    else
+    {
+        // Räjähdysanimaatio päällä
+        explosionTimer += Raylib.GetFrameTime();
+        if (explosionTimer >= explosionDuration)
         {
-            tank2.Score++;
-            bullets.RemoveAt(i);
             ResetGame();
-            continue;
-        }
-        if (bullets[i].Shooter != tank2 && Raylib.CheckCollisionRecs(bullets[i].rect, tank2.rect))
-        {
-            tank1.Score++;
-            bullets.RemoveAt(i);
-            ResetGame();
-            continue;
-        }
-
-        if (Raylib.CheckCollisionRecs(bullets[i].rect, wall) || bullets[i].OutOfBounds(800, 600))
-        {
-            bullets.RemoveAt(i);
         }
     }
 
+    // -----------------------------
+    // Piirto
+    // -----------------------------
     Raylib.BeginDrawing();
-    Raylib.ClearBackground(Color.Green);
+    Raylib.ClearBackground(Color.Black);
 
     tank1.Draw();
     tank2.Draw();
 
     Raylib.DrawRectangleRec(wall, Color.DarkGray);
 
-
     foreach (var bullet in bullets)
-    {
         bullet.Draw();
+
+    // 💥 Räjähdysanimaatio
+    if (explosionActive)
+    {
+        float progress = explosionTimer / explosionDuration;
+        float scale = 1.0f + progress * 1.3f; // kasvaa 3x isoksi
+        int alpha = (int)(255 * (1.0f - progress)); // haalistuu lopussa
+
+        // Lasketaan räjähdyksen keskitys tankin kohdalle
+        float explosionX = explosionPosition.X + tank1Texture.Width / 2 - (explosionTexture.Width * scale) / 2;
+        float explosionY = explosionPosition.Y + tank1Texture.Height / 2 - (explosionTexture.Height * scale) / 2;
+
+        Raylib.DrawTexturePro(
+            explosionTexture,
+            new Rectangle(0, 0, explosionTexture.Width, explosionTexture.Height),
+            new Rectangle(explosionX, explosionY, explosionTexture.Width * scale, explosionTexture.Height * scale),
+            new Vector2(0, 0),
+            0,
+            new Color(255, 255, 255, alpha)
+        );
     }
 
     Raylib.DrawText($"Tank 1: {tank1.Score}", 10, 10, 20, Color.White);
@@ -79,23 +146,32 @@ while (!Raylib.WindowShouldClose())
     Raylib.EndDrawing();
 }
 
+// -----------------------------
+// Siivous
+// -----------------------------
+Raylib.UnloadTexture(tank1Texture);
+Raylib.UnloadTexture(tank2Texture);
+Raylib.UnloadTexture(explosionTexture);
+Raylib.UnloadSound(shootSound);
+Raylib.UnloadSound(explosionSound);
+Raylib.CloseAudioDevice();
 Raylib.CloseWindow();
 
 
+// -----------------------------
+// Tank-luokka
+// -----------------------------
 class Tank
 {
     public Rectangle rect;
-    private Color color;
-    private Vector2 direction = new Vector2(1, 0); 
+    private Texture2D texture;
+    private Vector2 direction = new Vector2(0, -1);
     public int Score = 0;
-    private float startX, startY;
 
-    public Tank(float x, float y, Color color)
+    public Tank(float x, float y, Texture2D texture)
     {
-        this.rect = new Rectangle(x, y, 40, 40);
-        this.color = color;
-        this.startX = x;
-        this.startY = y;
+        this.rect = new Rectangle(x, y, texture.Width, texture.Height);
+        this.texture = texture;
     }
 
     public void ResetPosition(float x, float y)
@@ -104,9 +180,10 @@ class Tank
         rect.Y = y;
     }
 
-    public void Update(KeyboardKey up, KeyboardKey down, KeyboardKey left, KeyboardKey right, KeyboardKey shoot, List<Bullet> bullets, Rectangle wall, Tank opponent)
+    public void Update(KeyboardKey up, KeyboardKey down, KeyboardKey left, KeyboardKey right, KeyboardKey shoot,
+                       List<Bullet> bullets, Rectangle wall, Tank opponent, Sound shootSound)
     {
-        float speed = 4.0f;
+        float speed = 2.0f;
         Rectangle newRect = rect;
 
         if (Raylib.IsKeyDown(up)) { newRect.Y -= speed; direction = new Vector2(0, -1); }
@@ -115,26 +192,36 @@ class Tank
         if (Raylib.IsKeyDown(right)) { newRect.X += speed; direction = new Vector2(1, 0); }
 
         if (!Raylib.CheckCollisionRecs(newRect, wall) && !Raylib.CheckCollisionRecs(newRect, opponent.rect))
-        {
             rect = newRect;
-        }
 
         if (Raylib.IsKeyPressed(shoot))
         {
             Vector2 barrelEnd = new Vector2(rect.X + rect.Width / 2 + direction.X * 20, rect.Y + rect.Height / 2 + direction.Y * 20);
             bullets.Add(new Bullet(barrelEnd.X - 5, barrelEnd.Y - 5, direction, this));
+
+            Raylib.PlaySound(shootSound);
         }
     }
 
     public void Draw()
     {
-        Raylib.DrawRectangleRec(rect, color);
-        Vector2 barrelEnd = new Vector2(rect.X + rect.Width / 2 + direction.X * 20, rect.Y + rect.Height / 2 + direction.Y * 20);
-        Raylib.DrawRectangle((int)barrelEnd.X - 5, (int)barrelEnd.Y - 5, 10, 20, color);
+        float rotation = MathF.Atan2(direction.Y, direction.X) * (180.0f / MathF.PI) + 90.0f;
+
+        Raylib.DrawTexturePro(
+            texture,
+            new Rectangle(0, 0, texture.Width, texture.Height),
+            new Rectangle(rect.X + rect.Width / 2, rect.Y + rect.Height / 2, rect.Width, rect.Height),
+            new Vector2(rect.Width / 2, rect.Height / 2),
+            rotation,
+            Color.White
+        );
     }
 }
 
 
+// -----------------------------
+// Bullet-luokka
+// -----------------------------
 class Bullet
 {
     public Rectangle rect;
@@ -157,7 +244,7 @@ class Bullet
 
     public void Draw()
     {
-        Raylib.DrawRectangleRec(rect, Color.Black);
+        Raylib.DrawRectangleRec(rect, Color.DarkPurple);
     }
 
     public bool OutOfBounds(int width, int height)

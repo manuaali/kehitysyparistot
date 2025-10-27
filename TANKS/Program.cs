@@ -7,9 +7,7 @@ Raylib.InitWindow(800, 600, "Tank Game");
 Raylib.InitAudioDevice();
 Raylib.SetTargetFPS(60);
 
-// -----------------------------
-// Tekstuurit ja äänet
-// -----------------------------
+// Tekstuurit ja äänet 
 Texture2D tank1Texture = Raylib.LoadTexture("Images/Tank1.png");
 Texture2D tank2Texture = Raylib.LoadTexture("Images/Tank2.png");
 Texture2D explosionTexture = Raylib.LoadTexture("Images/explosion.png");
@@ -17,26 +15,19 @@ Texture2D explosionTexture = Raylib.LoadTexture("Images/explosion.png");
 Sound shootSound = Raylib.LoadSound("Images/shoot.wav");
 Sound explosionSound = Raylib.LoadSound("Images/explosion.wav");
 
-// -----------------------------
-// Pelaajat ja kenttä
-// -----------------------------
+// Pelin tila 
+bool inMenu = true;
+bool explosionActive = false;
+float explosionTimer = 0f;
+float explosionDuration = 2.0f;
+Vector2 explosionPosition = new Vector2();
+
+// Pelaajat ja kenttä 
 Tank tank1 = new Tank(100, 250, tank1Texture);
 Tank tank2 = new Tank(600, 250, tank2Texture);
-
 List<Bullet> bullets = new List<Bullet>();
 Rectangle wall = new Rectangle(350, 200, 100, 200);
 
-// -----------------------------
-// Räjähdysanimaation muuttujat
-// -----------------------------
-bool explosionActive = false;
-float explosionTimer = 0f;
-Vector2 explosionPosition = new Vector2();
-float explosionDuration = 2.0f; // kuinka kauan räjähdys kestää sekunneissa
-
-// -----------------------------
-// Reset
-// -----------------------------
 void ResetGame()
 {
     tank1.ResetPosition(100, 250);
@@ -46,11 +37,44 @@ void ResetGame()
     explosionTimer = 0f;
 }
 
-// -----------------------------
-// Pelisilmukka
-// -----------------------------
 while (!Raylib.WindowShouldClose())
 {
+    if (inMenu)
+    {
+        Raylib.BeginDrawing();
+        Raylib.ClearBackground(Color.Black);
+
+        Raylib.DrawText("TANK GAME", 250, 100, 40, Color.White);
+
+        Rectangle startButton = new Rectangle(300, 250, 200, 60);
+        Rectangle quitButton = new Rectangle(300, 350, 200, 60);
+
+        Vector2 mouse = Raylib.GetMousePosition();
+
+        if (Raylib.CheckCollisionPointRec(mouse, startButton))
+        {
+            Raylib.DrawRectangleRec(startButton, Color.Gray);
+            if (Raylib.IsMouseButtonPressed(MouseButton.Left))
+                inMenu = false;
+        }
+        else Raylib.DrawRectangleRec(startButton, Color.DarkGray);
+
+        Raylib.DrawText("START", 355, 265, 30, Color.White);
+
+        if (Raylib.CheckCollisionPointRec(mouse, quitButton))
+        {
+            Raylib.DrawRectangleRec(quitButton, Color.Gray);
+            if (Raylib.IsMouseButtonPressed(MouseButton.Left))
+                Raylib.CloseWindow();
+        }
+        else Raylib.DrawRectangleRec(quitButton, Color.DarkGray);
+
+        Raylib.DrawText("QUIT", 370, 365, 30, Color.White);
+
+        Raylib.EndDrawing();
+        continue;
+    }
+
     if (!explosionActive)
     {
         tank1.Update(KeyboardKey.W, KeyboardKey.S, KeyboardKey.A, KeyboardKey.D, KeyboardKey.F, bullets, wall, tank2, shootSound);
@@ -65,7 +89,6 @@ while (!Raylib.WindowShouldClose())
             if (bullets[i].Shooter == tank2 && Raylib.CheckCollisionRecs(bullets[i].rect, tank2.rect))
                 continue;
 
-            // 💥 Osuma tankki 1
             if (bullets[i].Shooter != tank1 && Raylib.CheckCollisionRecs(bullets[i].rect, tank1.rect))
             {
                 tank2.Score++;
@@ -73,11 +96,10 @@ while (!Raylib.WindowShouldClose())
                 explosionActive = true;
                 explosionTimer = 0f;
                 explosionPosition = new Vector2(tank1.rect.X, tank1.rect.Y);
-                bullets.Clear(); // poista kaikki luodit heti
+                bullets.Clear();
                 continue;
             }
 
-            // 💥 Osuma tankki 2
             if (bullets[i].Shooter != tank2 && Raylib.CheckCollisionRecs(bullets[i].rect, tank2.rect))
             {
                 tank1.Score++;
@@ -90,24 +112,16 @@ while (!Raylib.WindowShouldClose())
             }
 
             if (Raylib.CheckCollisionRecs(bullets[i].rect, wall) || bullets[i].OutOfBounds(800, 600))
-            {
                 bullets.RemoveAt(i);
-            }
         }
     }
     else
     {
-        // Räjähdysanimaatio päällä
         explosionTimer += Raylib.GetFrameTime();
         if (explosionTimer >= explosionDuration)
-        {
             ResetGame();
-        }
     }
 
-    // -----------------------------
-    // Piirto
-    // -----------------------------
     Raylib.BeginDrawing();
     Raylib.ClearBackground(Color.Black);
 
@@ -119,14 +133,12 @@ while (!Raylib.WindowShouldClose())
     foreach (var bullet in bullets)
         bullet.Draw();
 
-    // 💥 Räjähdysanimaatio
     if (explosionActive)
     {
         float progress = explosionTimer / explosionDuration;
-        float scale = 1.0f + progress * 1.3f; // kasvaa 3x isoksi
-        int alpha = (int)(255 * (1.0f - progress)); // haalistuu lopussa
+        float scale = 1.0f + progress * 1.3f;
+        int alpha = (int)(255 * (1.0f - progress));
 
-        // Lasketaan räjähdyksen keskitys tankin kohdalle
         float explosionX = explosionPosition.X + tank1Texture.Width / 2 - (explosionTexture.Width * scale) / 2;
         float explosionY = explosionPosition.Y + tank1Texture.Height / 2 - (explosionTexture.Height * scale) / 2;
 
@@ -146,9 +158,6 @@ while (!Raylib.WindowShouldClose())
     Raylib.EndDrawing();
 }
 
-// -----------------------------
-// Siivous
-// -----------------------------
 Raylib.UnloadTexture(tank1Texture);
 Raylib.UnloadTexture(tank2Texture);
 Raylib.UnloadTexture(explosionTexture);
@@ -158,9 +167,6 @@ Raylib.CloseAudioDevice();
 Raylib.CloseWindow();
 
 
-// -----------------------------
-// Tank-luokka
-// -----------------------------
 class Tank
 {
     public Rectangle rect;
@@ -218,10 +224,6 @@ class Tank
     }
 }
 
-
-// -----------------------------
-// Bullet-luokka
-// -----------------------------
 class Bullet
 {
     public Rectangle rect;
